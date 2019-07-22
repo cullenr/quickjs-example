@@ -1,9 +1,5 @@
 CC := gcc
 
-SRC := $(shell find . -type f -name '*.c' ! -path '*/quickjs/*')
-OBJ := $(SRC:.c=.o)
-DEP := $(SRC:.c=.d)
-
 CFLAGS ?= -Wall -MMD \
     -D_FORTIFY_SOURCE=2 \
     -Wextra -Wcast-align -Wcast-qual -Wpointer-arith \
