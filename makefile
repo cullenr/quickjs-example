@@ -1,13 +1,8 @@
 CC := gcc
 
-OBJDIR=.obj
-
 SRC := $(shell find . -type f -name '*.c' ! -path '*/quickjs/*')
 OBJ := $(SRC:.c=.o)
 DEP := $(SRC:.c=.d)
-
-INC_DIRS := $(shell ls -d */)
-INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CFLAGS ?= -Wall -MMD \
     -D_FORTIFY_SOURCE=2 \
@@ -19,7 +14,7 @@ CFLAGS ?= -Wall -MMD \
     -Wno-unused-parameter \
     -pedantic -std=c11 -O3
 
-CPPFLAGS := $(INC_FLAGS)
+CPPFLAGS := -Iquickjs
 LDLIBS := -ldl -lm 
 
 all: main
@@ -42,8 +37,8 @@ quickjs/qjsc:
 .PHONY: clean
 
 clean:
-	$(RM) $(OBJ)		# remove object files
-	$(RM) $(DEP)		# remove dependency files
+	$(RM) *.d *.o		# remove dependency files
+	$(RM) test_module.c	# remove main program
 	$(RM) main		# remove main program
 	make -C quickjs clean	# clean quickjs
 
