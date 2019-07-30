@@ -2,5 +2,9 @@
 
 import { test } from "./test.so";
 
-console.log("Hello World");
-console.log("test(10)=", test(10));
+function callback(res) {
+    console.log('hello');
+    console.log(res);
+}
+
+test(10, callback);
